@@ -1,10 +1,9 @@
-// ── THEME RESTORE (no flash) ──
+
 (function () {
   var t = localStorage.getItem('theme');
   if (t) document.documentElement.setAttribute('data-theme', t);
 })();
 
-// ── THEME TOGGLE ──
 function toggleTheme() {
   const html   = document.documentElement;
   const isDark = html.getAttribute('data-theme') === 'dark';
@@ -17,7 +16,6 @@ function toggleTheme() {
   document.getElementById('themeLabel').textContent = isDark ? 'Dark' : 'Light';
 }
 
-// ── SYNC BUTTON STATE ON LOAD ──
 document.addEventListener('DOMContentLoaded', () => {
   const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
   const icon   = document.getElementById('themeIcon');
@@ -25,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (icon)  icon.className    = isDark ? 'bi bi-moon-fill' : 'bi bi-sun-fill';
   if (label) label.textContent = isDark ? 'Light' : 'Dark';
 
-  // ── SMOOTH SCROLL ──
   const NAV_HEIGHT = 64;
   document.querySelectorAll('a.nav-link-item').forEach(link => {
     link.addEventListener('click', e => {
@@ -38,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ── SKILLS TABS ──
   document.querySelectorAll('.skills-tab').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.skills-tab').forEach(b => b.classList.remove('active'));
