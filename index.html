@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Marc Andrei — Portfolio</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <!-- Styles -->
+  <link href="style.css" rel="stylesheet">
+
+  <!-- Instant theme restore (no flash) -->
+</head>
+
+<body>
+
+  <nav class="site-nav">
+    <div class="container d-flex align-items-center justify-content-between h-100">
+
+      <a class="nav-logo" href="#home">Marc<span>.</span></a>
+
+      <ul class="nav-links d-none d-md-flex list-unstyled mb-0">
+        <li><a class="nav-link-item" href="#home">Home</a></li>
+        <li><a class="nav-link-item" href="#about">About</a></li>
+        <li><a class="nav-link-item" href="#skills">Skills</a></li>
+        <li><a class="nav-link-item" href="#personal">Personal</a></li>
+        <li><a class="nav-link-item" href="#projects">Projects</a></li>
+        <li><a class="nav-link-item" href="#contact">Contact</a></li>
+      </ul>
+
+      <button class="theme-toggle" onclick="toggleTheme()">
+        <i class="bi bi-moon-fill" id="themeIcon"></i>
+        <span id="themeLabel">Light</span>
+      </button>
+
+    </div>
+  </nav>
+
+
+  <section id="home" class="d-flex align-items-center">
+    <div class="container">
+      <div class="row align-items-center gy-5">
+
+        <div class="col-lg-7">
+          <span class="hero-eyebrow mb-4 d-inline-flex">
+            Welcome To My Portfolio
+          </span>
+          <h1 class="hero-name mb-3">
+            Hello, I'm<br><em>Marc Andrei</em>
+          </h1>
+          <p class="hero-role mb-3">Web Developer &amp; UI Designer</p>
+          <p class="hero-desc mb-5">
+            I build clean, functional websites and interfaces — focused on
+            writing maintainable code and creating experiences that work
+            well for real people.
+          </p>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="#projects" class="btn-primary-custom">View Projects</a>
+            <a href="#contact" class="btn-outline-custom">Get in Touch</a>
+            <a href="cv.pdf" download class="btn-cv-custom d-inline-flex align-items-center gap-2">
+              <i class="bi bi-download"></i> Download CV
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-5 d-flex justify-content-center">
+          <div class="hero-avatar-wrap position-relative">
+            <div class="hero-avatar-ring"></div>
+            <img src="2x2 Standard Pic.jpg" alt="Marc Andrei" class="hero-avatar"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="avatar-placeholder" style="display:none;">
+              <i class="bi bi-person"></i>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <section id="about" class="py-5">
+    <div class="container py-5">
+      <div class="row align-items-center g-5">
+
+        <div class="col-lg-5 d-none d-lg-flex">
+          <div class="about-img-wrap w-100 d-flex align-items-center justify-content-center">
+            <i class="bi bi-person-bounding-box"></i>
+          </div>
+        </div>
+
+        <div class="col-lg-7">
+          <p class="section-label mb-2">About Me</p>
+          <h2 class="section-title mb-4">A glimpse of<br>who <em>I am</em></h2>
+          <p class="about-body-text mb-3">
+            I'm a web developer based in the Philippines with a genuine interest in
+            building things on the internet. I enjoy turning complex requirements into
+            well-structured, responsive websites using clean and maintainable code.
+          </p>
+          <p class="about-body-text mb-5">
+            When I'm not coding, I'm exploring new tools, sharpening my design eye, or
+            working on personal projects that push me to learn something new.
+          </p>
+
+          <div class="stats-row d-flex">
+            <div class="stat-item">
+              <span class="stat-num">10+</span>
+              <span class="stat-lbl">Projects Built</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">3+</span>
+              <span class="stat-lbl">Years Learning</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">&#8734;</span>
+              <span class="stat-lbl">Coffee Cups</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+ 
+  <section id="personal" class="py-5">
+    <div class="container py-5">
+
+      <div class="row align-items-end mb-5">
+        <div class="col-lg-6">
+          <p class="section-label mb-2">Beyond the Code</p>
+          <h2 class="section-title mb-0">A Little <em>More</em><br>About Me</h2>
+        </div>
+        <div class="col-lg-6 mt-3 mt-lg-0">
+          <p class="section-sub mb-0">
+            The interests, background, and direction that shape how I work
+            — and where I'm headed next.
+          </p>
+        </div>
+      </div>
+
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+
+        <div class="col">
+          <div class="personal-card">
+            <div class="personal-card-num">01</div>
+            <div class="personal-icon d-flex align-items-center justify-content-center mb-3">
+              <i class="bi bi-heart"></i>
+            </div>
+            <h5 class="mb-2">Interests</h5>
+            <p class="mb-0">
+              UI design and digital craftsmanship, open-source tooling, photography,
+              and the occasional deep dive into a new framework just to see how it thinks.
+            </p>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="personal-card">
+            <div class="personal-card-num">02</div>
+            <div class="personal-icon d-flex align-items-center justify-content-center mb-3">
+              <i class="bi bi-mortarboard"></i>
+            </div>
+            <h5 class="mb-2">Education</h5>
+            <p class="mb-0">
+              BS Information Technology — building a strong foundation in software
+              development, databases, and systems while working on real client projects
+              alongside coursework.
+            </p>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="personal-card">
+            <div class="personal-card-num">03</div>
+            <div class="personal-icon d-flex align-items-center justify-content-center mb-3">
+              <i class="bi bi-bullseye"></i>
+            </div>
+            <h5 class="mb-2">Goals</h5>
+            <p class="mb-0">
+              Land a role where I can grow as a full-stack developer, contribute to
+              open-source projects, and eventually build and ship a product of my own.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+
+  <section id="skills" class="py-5">
+    <div class="container py-5">
+
+      <div class="row align-items-end mb-5">
+        <div class="col-lg-6">
+          <p class="section-label mb-2">What I Know</p>
+          <h2 class="section-title mb-0">Skills &amp; <em>Tools</em></h2>
+        </div>
+        <div class="col-lg-6 mt-3 mt-lg-0">
+          <p class="section-sub mb-0">
+            Technologies I work with regularly, from writing server-side logic to shipping polished UIs.
+          </p>
+        </div>
+      </div>
+
+      
+      <div class="skills-tabs mb-4">
+        <button class="skills-tab active" data-tab="frontend">
+          <i class="bi bi-display"></i> Frontend
+        </button>
+        <button class="skills-tab" data-tab="backend">
+          <i class="bi bi-server"></i> Backend
+        </button>
+        <button class="skills-tab" data-tab="stack">
+          <i class="bi bi-layers"></i> Tech Stack
+        </button>
+      </div>
+
+      <div class="skills-panel" id="tab-frontend">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+          <div class="col">
+            <div class="skill-card">
+              <div class="skill-icon d-flex align-items-center justify-content-center mb-3">
+                <i class="bi bi-filetype-html"></i>
+              </div>
+              <h5 class="mb-2">HTML &amp; CSS</h5>
+              <p class="mb-0">Semantic markup and modern CSS — flexbox, grid, custom properties, and responsive layouts
+                from scratch.</p>
+            </div>
+          </div>
+          <div class="col">
+            <div class="skill-card">
+              <div class="skill-icon d-flex align-items-center justify-content-center mb-3">
+                <i class="bi bi-filetype-js"></i>
+              </div>
+              <h5 class="mb-2">JavaScript</h5>
+              <p class="mb-0">DOM manipulation, async/fetch, and building interactive components without reaching for a
+                framework.</p>
+            </div>
+          </div>
+          <div class="col">
+            <div class="skill-card">
+              <div class="skill-icon d-flex align-items-center justify-content-center mb-3">
+                <i class="bi bi-bootstrap"></i>
+              </div>
+              <h5 class="mb-2">Bootstrap</h5>
+              <p class="mb-0">Rapid UI development using the Bootstrap 5 grid system, utilities, and component
+                ecosystem.</p>
+            </div>
+          </div>
+          <div class="col">
+            <div class="skill-card">
+              <div class="skill-icon d-flex align-items-center justify-content-center mb-3">
+                <i class="bi bi-phone"></i>
+              </div>
+              <h5 class="mb-2">Responsive Design</h5>
+              <p class="mb-0">Mobile-first layouts that adapt gracefully across screen sizes using media queries and
+                fluid grids.</p>
+            </div>
+          </div>
+          <div class="col">
+            <div class="skill-card">
+              <div class="skill-icon d-flex align-items-center justify-content-center mb-3">
+                <i class="bi bi-brush"></i>
+              </div>
+              <h5 class="mb-2">UI / UX Design</h5>
+              <p class="mb-0">Translating design ideas into polished, accessible interfaces with attention to spacing,
+                hierarchy, and interaction.</p>
+            </div>
+          </div>
+          <div class="col">
+            <div class="skill-card">
+              <div class="skill-icon d-flex align-items-center justify-content-center mb-3">
+                <i class="bi bi-magic"></i>
+              </div>
+              <h5 class="mb-2">CSS Animations</h5>
+              <p class="mb-0">Scroll-triggered reveals, keyframe animations, and micro-interactions to make UIs feel
+                alive and purposeful.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="skills-panel d-none" id="tab-backend">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+          <div class="col">
+            <div class="skill-card">
+              <div class="skill-icon d-flex align-items-center justify-content-center mb-3">
+                <i class="bi bi-filetype-php"></i>
+              </div>
+              <h5 class="mb-2">PHP</h5>
+              <p class="mb-0">Server-side scripting, PDO/MySQLi, session handling, and building full CRUD web
+                applications.</p>
+            </div>
+          </div>
+          <div class="col">
+            <div class="skill-card">
+              <div class="skill-icon d-flex align-items-center justify-content-center mb-3">
+                <i class="bi bi-database"></i>
+              </div>
+              <h5 class="mb-2">MySQL</h5>
+              <p class="mb-0">Relational schema design, complex queries, joins, views, indexing, and performance
+                fundamentals.</p>
+            </div>
+          </div>
+          <div class="col">
+            <div class="skill-card">
+              <div class="skill-icon d-flex align-items-center justify-content-center mb-3">
+                <i class="bi bi-shield-lock"></i>
+              </div>
+              <h5 class="mb-2">Authentication</h5>
+              <p class="mb-0">Session-based login flows, bcrypt password hashing, role-based access control, and route
+                protection.</p>
+            </div>
+          </div>
+          <div class="col">
+            <div class="skill-card">
+              <div class="skill-icon d-flex align-items-center justify-content-center mb-3">
+                <i class="bi bi-arrow-repeat"></i>
+              </div>
+              <h5 class="mb-2">REST &amp; APIs</h5>
+              <p class="mb-0">Consuming and structuring JSON APIs, handling async requests, and integrating third-party
+                services.</p>
+            </div>
+          </div>
+          <div class="col">
+            <div class="skill-card">
+              <div class="skill-icon d-flex align-items-center justify-content-center mb-3">
+                <i class="bi bi-git"></i>
+              </div>
+              <h5 class="mb-2">Git &amp; GitHub</h5>
+              <p class="mb-0">Version control, branching strategies, pull requests, and collaborative development
+                workflows.</p>
+            </div>
+          </div>
+          <div class="col">
+            <div class="skill-card">
+              <div class="skill-icon d-flex align-items-center justify-content-center mb-3">
+                <i class="bi bi-hdd-stack"></i>
+              </div>
+              <h5 class="mb-2">Server &amp; Hosting</h5>
+              <p class="mb-0">Local dev environments with XAMPP/WAMP, file structure organisation, and deploying PHP
+                projects to shared hosting.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="skills-panel d-none" id="tab-stack">
+        <p class="section-sub mb-4">Everything in one place — the full set of technologies across my frontend and
+          backend work.</p>
+        <div class="stack-grid">
+
+          <div class="stack-category">
+            <p class="stack-cat-label"><i class="bi bi-display me-2"></i>Frontend</p>
+            <div class="stack-pills">
+              <span class="stack-pill"><i class="bi bi-filetype-html"></i> HTML5</span>
+              <span class="stack-pill"><i class="bi bi-filetype-css"></i> CSS3</span>
+              <span class="stack-pill"><i class="bi bi-filetype-js"></i> JavaScript (ES6+)</span>
+              <span class="stack-pill"><i class="bi bi-bootstrap"></i> Bootstrap 5</span>
+              <span class="stack-pill"><i class="bi bi-brush"></i> UI/UX Design</span>
+              <span class="stack-pill"><i class="bi bi-phone"></i> Responsive Design</span>
+            </div>
+          </div>
+
+          <div class="stack-divider"></div>
+
+          <div class="stack-category">
+            <p class="stack-cat-label"><i class="bi bi-server me-2"></i>Backend</p>
+            <div class="stack-pills">
+              <span class="stack-pill"><i class="bi bi-filetype-php"></i> PHP</span>
+              <span class="stack-pill"><i class="bi bi-database"></i> MySQL</span>
+              <span class="stack-pill"><i class="bi bi-key"></i> PDO / MySQLi</span>
+              <span class="stack-pill"><i class="bi bi-shield-lock"></i> Auth &amp; Sessions</span>
+              <span class="stack-pill"><i class="bi bi-arrow-repeat"></i> REST APIs</span>
+            </div>
+          </div>
+
+          <div class="stack-divider"></div>
+
+          <div class="stack-category">
+            <p class="stack-cat-label"><i class="bi bi-tools me-2"></i>Tools &amp; Workflow</p>
+            <div class="stack-pills">
+              <span class="stack-pill"><i class="bi bi-git"></i> Git</span>
+              <span class="stack-pill"><i class="bi bi-github"></i> GitHub</span>
+              <span class="stack-pill"><i class="bi bi-hdd-stack"></i> XAMPP / WAMP</span>
+              <span class="stack-pill"><i class="bi bi-code-square"></i> VS Code</span>
+              <span class="stack-pill"><i class="bi bi-grid-1x2"></i> phpMyAdmin</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+
+  <section id="projects" class="py-5">
+    <div class="container py-5">
+
+      <div class="row align-items-end mb-5">
+        <div class="col-lg-6">
+          <p class="section-label mb-2">My Work</p>
+          <h2 class="section-title mb-0">Selected <em>Projects</em></h2>
+        </div>
+        <div class="col-lg-6 mt-3 mt-lg-0">
+          <p class="section-sub mb-0">
+            A curated selection of things I've designed and built end-to-end.
+          </p>
+        </div>
+      </div>
+
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+
+        <div class="col">
+          <div class="project-card">
+            <div class="project-thumb d-flex align-items-center justify-content-center">
+              <i class="bi bi-watch"></i>
+            </div>
+            <div class="card-body">
+              <span class="project-tag">PHP / MySQL</span>
+              <h5 class="card-title mt-2 mb-2">Chronos Timepieces</h5>
+              <p class="card-text mb-3">A full-stack e-commerce store for luxury watches with product listings,
+                persistent cart, user accounts, wishlists, and an admin dashboard with order analytics.</p>
+              <a href="#" class="project-link d-inline-flex align-items-center gap-1">
+                View Project <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="project-card">
+            <div class="project-thumb d-flex align-items-center justify-content-center">
+              <i class="bi bi-grid-1x2"></i>
+            </div>
+            <div class="card-body">
+              <span class="project-tag">HTML / CSS / JS</span>
+              <h5 class="card-title mt-2 mb-2">Project Two</h5>
+              <p class="card-text mb-3">Describe your second project here. Keep it short — one or two sentences is
+                enough to give context.</p>
+              <a href="#" class="project-link d-inline-flex align-items-center gap-1">
+                View Project <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="project-card">
+            <div class="project-thumb d-flex align-items-center justify-content-center">
+              <i class="bi bi-phone"></i>
+            </div>
+            <div class="card-body">
+              <span class="project-tag">Bootstrap</span>
+              <h5 class="card-title mt-2 mb-2">Project Three</h5>
+              <p class="card-text mb-3">Describe your third project here. Replace the icon, tag, title, and description
+                with your own work.</p>
+              <a href="#" class="project-link d-inline-flex align-items-center gap-1">
+                View Project <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+
+  <section id="contact" class="py-5">
+    <div class="container py-5">
+      <p class="section-label mb-2 text-center">Get in Touch</p>
+      <h2 class="section-title mb-2 text-center">Contact <em>Me</em></h2>
+      <p class="section-sub mb-5 text-center mx-auto" style="max-width:460px;">
+        Open to freelance work, collaborations, or just a conversation about a project.
+      </p>
+
+      <div class="contact-card mx-auto">
+
+        <div class="contact-row d-flex align-items-center gap-3 px-4 py-3">
+          <div class="contact-icon d-flex align-items-center justify-content-center">
+            <i class="bi bi-facebook"></i>
+          </div>
+          <div>
+            <div class="contact-label">Facebook</div>
+            <div class="contact-value"><a href="https://www.facebook.com/mrcsrcna">Marc Andrei Sercena</a></div>
+          </div>
+        </div>
+
+        <div class="contact-row d-flex align-items-center gap-3 px-4 py-3">
+          <div class="contact-icon d-flex align-items-center justify-content-center">
+            <i class="bi bi-envelope"></i>
+          </div>
+          <div>
+            <div class="contact-label">Email</div>
+            <div class="contact-value"><a href="mailto:andreisercena@gmail.com">andreisercena@gmail.com</a></div>
+          </div>
+        </div>
+
+        <div class="contact-row d-flex align-items-center gap-3 px-4 py-3">
+          <div class="contact-icon d-flex align-items-center justify-content-center">
+            <i class="bi bi-instagram"></i>
+          </div>
+          <div>
+            <div class="contact-label">Instagram</div>
+            <div class="contact-value"><a href="https://www.instagram.com/mrcsrcna/">@mrcsrcna</a></div>
+          </div>
+        </div>
+
+        <div class="contact-row d-flex align-items-center gap-3 px-4 py-3">
+          <div class="contact-icon d-flex align-items-center justify-content-center">
+            <i class="bi bi-telephone"></i>
+          </div>
+          <div>
+            <div class="contact-label">Phone</div>
+            <div class="contact-value">0976-289-6687</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+
+  <footer class="py-4 text-center">
+    <p class="mb-0">&copy; 2025 Marc Andrei Sercena &mdash; Built with HTML, Bootstrap &amp; CSS.</p>
+  </footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="main.js"></script>
+</body>
+
+</html>
