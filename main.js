@@ -116,4 +116,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   updateGithubRepoCount();
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> 14b9bd9 (Updated CSS Mobile Responsiveness)
