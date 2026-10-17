@@ -1,8 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
 
+/* ==========================================================================
+   Design tokens
+   ========================================================================== */
+
 :root {
   color-scheme: light;
+  /* Logo palette */
   --logo-blue: #2947b1;
   --logo-navy: #16224d;
   --logo-slate: #3d4665;
@@ -22,6 +27,23 @@
   --on-accent: #ffffff;
   --nav-bg: rgba(246, 247, 251, .91);
   --shadow: 0 18px 55px rgba(22, 34, 77, .1);
+
+  /* Responsive scale.
+     1 on normal screens, raised on very large displays (see the
+     "Large screens" section). Everything sized with it grows together. */
+  --scale: 1;
+
+  /* Type tokens. Small mono labels get a little larger on phones
+     (see the "Phones" section) so they stay readable. */
+  --fs-body: calc(15px * var(--scale));
+  --fs-lead: calc(16px * var(--scale));
+  --fs-meta: calc(13px * var(--scale));
+  --fs-small: calc(12px * var(--scale));
+  --fs-ui: calc(11px * var(--scale));
+  --fs-micro: calc(10px * var(--scale));
+  --fs-nano: calc(9px * var(--scale));
+
+  --nav-height: calc(76px * var(--scale));
 }
 
 html[data-theme="dark"] {
@@ -43,13 +65,20 @@ html[data-theme="dark"] {
   --shadow: 0 18px 55px rgba(0, 0, 0, .35);
 }
 
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
 * {
   box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 88px;
+  scroll-padding-top: calc(var(--nav-height) + 12px);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -57,9 +86,18 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: "DM Sans", sans-serif;
-  font-size: 15px;
+  font-size: var(--fs-body);
   line-height: 1.7;
+  overflow-wrap: break-word;
+  /* Never allow sideways scrolling. */
+  overflow-x: hidden;
   transition: background .25s ease, color .25s ease;
+}
+
+@supports (overflow: clip) {
+  body {
+    overflow-x: clip;
+  }
 }
 
 a {
@@ -72,7 +110,7 @@ img {
 }
 
 .section-space {
-  padding: 112px 0;
+  padding: calc(112px * var(--scale)) 0;
 }
 
 .section-paper {
@@ -80,15 +118,24 @@ img {
 }
 
 
+/* ==========================================================================
+   Navigation
+   ========================================================================== */
 
 .site-nav {
-  min-height: 76px;
+  min-height: var(--nav-height);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
   background: var(--nav-bg);
   backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line);
 }
 
 .nav-logo {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
   color: var(--text);
   font-family: "DM Serif Display", serif;
   font-size: 29px;
@@ -99,26 +146,15 @@ img {
   color: var(--accent);
 }
 
-
-
-.nav-logo {
-  display: inline-flex;
-  align-items: center;
-  padding: 0;
-}
-
 .logo-img {
   display: block;
-  height: 38px;
+  height: calc(38px * var(--scale));
   width: auto;
   transition: filter .25s ease, transform .25s ease;
 }
 
-.nav-logo:hover .logo-img {
-  transform: scale(1.05);
-}
-
-
+/* The logo is dark navy to black, so render it as a light silhouette
+   in dark mode. */
 html[data-theme="dark"] .logo-img {
   filter: brightness(0) invert(.94);
 }
@@ -126,22 +162,22 @@ html[data-theme="dark"] .logo-img {
 .footer-brand {
   display: inline-flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
 .logo-img-footer {
-  height: 18px;
+  height: calc(18px * var(--scale));
   opacity: .8;
 }
 
 .nav-link-item {
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-small);
   font-weight: 600;
   transition: color .2s ease;
 }
 
-.nav-link-item:hover,
 .nav-link-item:focus {
   color: var(--text);
 }
@@ -162,8 +198,9 @@ html[data-theme="dark"] .navbar-toggler-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  flex: none;
+  width: calc(40px * var(--scale));
+  height: calc(40px * var(--scale));
   padding: 0;
   color: var(--text);
   background: transparent;
@@ -173,22 +210,20 @@ html[data-theme="dark"] .navbar-toggler-icon {
   transition: background .2s ease, border-color .2s ease, color .2s ease, transform .2s ease;
 }
 
-.theme-toggle:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  transform: rotate(15deg);
-}
-
 .theme-toggle i {
-  font-size: 17px;
+  font-size: calc(17px * var(--scale));
   line-height: 1;
 }
 
-/* Hero section */
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
 
 .hero-section {
   min-height: 100vh;
-  padding-top: 150px;
+  min-height: 100svh;
+  padding-top: calc(150px * var(--scale));
   padding-bottom: 32px;
   display: flex;
   align-items: center;
@@ -200,11 +235,12 @@ html[data-theme="dark"] .navbar-toggler-icon {
   gap: 10px;
   margin-bottom: 22px;
   color: var(--muted);
-  font: 500 10px/1.4 "DM Mono", monospace;
+  font: 500 var(--fs-micro)/1.4 "DM Mono", monospace;
   letter-spacing: .12em;
 }
 
 .eyebrow-line {
+  flex: 0 0 auto;
   width: 28px;
   height: 2px;
   background: linear-gradient(90deg, var(--accent), var(--logo-navy));
@@ -222,7 +258,7 @@ html[data-theme="dark"] .navbar-toggler-icon {
 }
 
 .hero-title {
-  font-size: clamp(46px, 6.4vw, 86px);
+  font-size: clamp(46px, 6.4vw, calc(86px * var(--scale)));
   margin: 0 0 25px;
 }
 
@@ -235,8 +271,8 @@ html[data-theme="dark"] .navbar-toggler-icon {
 
 .hero-description {
   color: var(--muted);
-  max-width: 520px;
-  font-size: 16px;
+  max-width: calc(520px * var(--scale));
+  font-size: var(--fs-lead);
   margin-bottom: 30px;
 }
 
@@ -249,16 +285,12 @@ html[data-theme="dark"] .navbar-toggler-icon {
   align-items: center;
   justify-content: center;
   gap: 12px;
-  min-height: 48px;
+  min-height: calc(48px * var(--scale));
   padding: 13px 19px;
   border: 1px solid transparent;
-  font-size: 11px;
+  font-size: var(--fs-ui);
   font-weight: 700;
   transition: transform .2s ease, background .2s ease, color .2s ease;
-}
-
-.button:hover {
-  transform: translateY(-2px);
 }
 
 .button-dark {
@@ -266,45 +298,34 @@ html[data-theme="dark"] .navbar-toggler-icon {
   color: var(--bg);
 }
 
-.button-dark:hover {
-  background: var(--accent);
-  color: var(--on-accent);
-}
-
 .button-outline {
   color: var(--text);
   border-color: var(--line);
-}
-
-.button-outline:hover {
-  border-color: var(--text);
 }
 
 .text-link {
   display: inline-flex;
   gap: 8px;
   align-items: center;
+  min-height: 44px;
   color: var(--muted);
-  font-size: 11px;
+  font-size: var(--fs-ui);
   font-weight: 600;
-}
-
-.text-link:hover {
-  color: var(--text);
 }
 
 /* Portrait */
 
 .hero-portrait-wrap {
   position: relative;
-  max-width: 420px;
+  max-width: calc(420px * var(--scale));
   margin-left: auto;
 }
 
 .hero-portrait {
   display: block;
   width: 100%;
-  height: 475px;
+  height: auto;
+  aspect-ratio: 420 / 475;
   object-fit: cover;
   background: var(--paper);
   filter: grayscale(25%);
@@ -323,14 +344,14 @@ html[data-theme="dark"] .navbar-toggler-icon {
 
 .note-number {
   color: var(--muted);
-  font: 500 10px "DM Mono", monospace;
+  font: 500 var(--fs-micro) "DM Mono", monospace;
   letter-spacing: .08em;
 }
 
 .portrait-caption p {
   margin: 14px 0 20px;
   font-family: "DM Serif Display", serif;
-  font-size: 19px;
+  font-size: calc(19px * var(--scale));
   line-height: 1.35;
 }
 
@@ -338,26 +359,30 @@ html[data-theme="dark"] .navbar-toggler-icon {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
   padding-top: 14px;
   border-top: 1px solid var(--line);
   color: var(--muted);
-  font: 500 9px "DM Mono", monospace;
+  font: 500 var(--fs-nano) "DM Mono", monospace;
   letter-spacing: .07em;
 }
 
 .note-bottom i {
+  flex: none;
   color: var(--accent);
-  font-size: 16px;
+  font-size: calc(16px * var(--scale));
 }
 
 .hero-bottom {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
+  gap: 8px 20px;
   margin-top: 70px;
   padding-top: 20px;
   border-top: 1px solid var(--line);
   color: var(--muted);
-  font: 500 9px "DM Mono", monospace;
+  font: 500 var(--fs-nano) "DM Mono", monospace;
   letter-spacing: .1em;
 }
 
@@ -365,20 +390,23 @@ html[data-theme="dark"] .navbar-toggler-icon {
   color: var(--text);
 }
 
-/* About section */
+
+/* ==========================================================================
+   About
+   ========================================================================== */
 
 .section-heading {
   margin-bottom: 55px;
 }
 
 .section-title {
-  font-size: clamp(38px, 5vw, 62px);
+  font-size: clamp(38px, 5vw, calc(62px * var(--scale)));
   margin: 0;
 }
 
 .section-intro {
   color: var(--muted);
-  max-width: 430px;
+  max-width: calc(430px * var(--scale));
   margin: 0 0 4px auto;
 }
 
@@ -391,6 +419,7 @@ html[data-theme="dark"] .navbar-toggler-icon {
 .stat-item {
   display: flex;
   flex-direction: column;
+  min-width: 0;
   padding: 25px 22px;
   border-right: 1px solid var(--line);
 }
@@ -404,23 +433,27 @@ html[data-theme="dark"] .navbar-toggler-icon {
 }
 
 .stat-number {
-  font: 400 25px "Manrope", serif;
+  font: 400 calc(25px * var(--scale)) "Manrope", serif;
 }
 
 .stat-label {
   color: var(--muted);
-  font-size: 11px;
+  font-size: var(--fs-ui);
 }
 
 .subheading {
-  font: 400 29px "DM Serif Display", serif;
+  font: 400 calc(29px * var(--scale)) "DM Serif Display", serif;
 }
 
 /* Education */
 
+/* Bootstrap's g-5 gutter (3rem) is wider than the container padding, which
+   pushes the page wider than the screen on phones. Keep it to 1.5rem there
+   (see the "Phones" section). */
+
 .education-item {
   display: grid;
-  grid-template-columns: 95px 1fr;
+  grid-template-columns: 95px minmax(0, 1fr);
   gap: 18px;
   padding: 0 0 25px;
   margin-bottom: 25px;
@@ -434,24 +467,27 @@ html[data-theme="dark"] .navbar-toggler-icon {
 
 .education-date {
   color: var(--muted);
-  font: 500 10px "DM Mono", monospace;
+  font: 500 var(--fs-micro) "DM Mono", monospace;
   letter-spacing: .08em;
   padding-top: 5px;
 }
 
 .education-item h4 {
   margin: 0 0 6px;
-  font-size: 15px;
+  font-size: var(--fs-body);
   font-weight: 600;
 }
 
 .education-item p {
   margin: 0;
   color: var(--muted);
-  font-size: 13px;
+  font-size: var(--fs-meta);
 }
 
-/* Skills */
+
+/* ==========================================================================
+   Skills
+   ========================================================================== */
 
 .skill-tabs {
   display: flex;
@@ -461,16 +497,16 @@ html[data-theme="dark"] .navbar-toggler-icon {
 }
 
 .skill-tab {
+  min-height: 44px;
   padding: 10px 17px;
   border: 1px solid var(--line);
   background: transparent;
   color: var(--muted);
-  font-size: 11px;
+  font-size: var(--fs-ui);
   font-weight: 600;
 }
 
-.skill-tab.active,
-.skill-tab:hover {
+.skill-tab.active {
   background: var(--text);
   color: var(--bg);
   border-color: var(--text);
@@ -488,23 +524,17 @@ html[data-theme="dark"] .navbar-toggler-icon {
   transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
 }
 
-.skill-card:hover,
-.personal-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow);
-  border-color: var(--accent);
-}
-
 .skill-index,
 .card-index {
   display: block;
   color: var(--muted);
-  font: 500 10px "DM Mono", monospace;
+  font: 500 var(--fs-micro) "DM Mono", monospace;
   letter-spacing: .1em;
 }
 
 .skill-icons {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 14px;
   min-height: 55px;
@@ -512,20 +542,16 @@ html[data-theme="dark"] .navbar-toggler-icon {
 }
 
 .skill-icons i {
-  font-size: 36px;
+  font-size: calc(36px * var(--scale));
   line-height: 1;
   transition: transform .25s ease;
-}
-
-.skill-card:hover .skill-icons i {
-  transform: translateY(-3px);
 }
 
 .skill-card h3,
 .personal-card h3 {
   margin: 0 0 10px;
   font-family: "Trebuchet MS", sans-serif;
-  font-size: 23px;
+  font-size: calc(23px * var(--scale));
   font-weight: 500;
 }
 
@@ -533,7 +559,7 @@ html[data-theme="dark"] .navbar-toggler-icon {
 .personal-card p {
   margin: 0;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-small);
   line-height: 1.8;
 }
 
@@ -546,10 +572,13 @@ html[data-theme="dark"] .navbar-toggler-icon {
   display: block;
   margin: 28px 0 17px;
   color: var(--accent);
-  font-size: 28px;
+  font-size: calc(28px * var(--scale));
 }
 
-/* Projects */
+
+/* ==========================================================================
+   Projects (also used by the Web Development Submission section)
+   ========================================================================== */
 
 .project-card {
   height: 100%;
@@ -573,10 +602,6 @@ html[data-theme="dark"] .navbar-toggler-icon {
   transition: transform .45s ease;
 }
 
-.project-card:hover .project-image {
-  transform: scale(1.04);
-}
-
 .project-image-label {
   position: absolute;
   top: 15px;
@@ -585,7 +610,7 @@ html[data-theme="dark"] .navbar-toggler-icon {
   padding: 5px 8px;
   color: #fff;
   background: rgba(20, 20, 18, .68);
-  font: 500 9px "DM Mono", monospace;
+  font: 500 var(--fs-nano) "DM Mono", monospace;
   letter-spacing: .1em;
 }
 
@@ -596,56 +621,60 @@ html[data-theme="dark"] .navbar-toggler-icon {
 .project-meta {
   margin: 0 0 12px;
   color: var(--muted);
-  font: 500 9px "DM Mono", monospace;
+  font: 500 var(--fs-nano) "DM Mono", monospace;
   letter-spacing: .1em;
 }
 
 .project-content h3 {
   margin: 0 0 12px;
   font-family: "Trebuchet MS", sans-serif;
-  font-size: 29px;
+  font-size: calc(29px * var(--scale));
   font-weight: 500;
 }
 
 .project-content > p:not(.project-meta) {
   min-height: 65px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-small);
 }
 
 .project-footer {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px 12px;
   padding-top: 17px;
   margin-top: 20px;
   border-top: 1px solid var(--line);
 }
 
 .project-footer > span {
+  min-width: 0;
   color: var(--muted);
-  font: 500 9px "DM Mono", monospace;
+  font: 500 var(--fs-nano) "DM Mono", monospace;
   letter-spacing: .04em;
 }
 
 .project-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
   white-space: nowrap;
-  font-size: 10px;
+  font-size: var(--fs-micro);
   font-weight: 700;
-}
-
-.project-link:hover {
-  color: var(--accent);
 }
 
 .template-note {
   margin: 25px 0 0;
   color: var(--muted);
-  font-size: 11px;
+  font-size: var(--fs-ui);
 }
 
-/* Contact section */
+
+/* ==========================================================================
+   Contact
+   ========================================================================== */
 
 .section-dark {
   background: var(--dark);
@@ -669,11 +698,11 @@ html[data-theme="dark"] .navbar-toggler-icon {
 
 .contact-title {
   margin: 0 0 20px;
-  font-size: clamp(48px, 7vw, 84px);
+  font-size: clamp(48px, 7vw, calc(84px * var(--scale)));
 }
 
 .contact-intro {
-  max-width: 440px;
+  max-width: calc(440px * var(--scale));
   color: var(--dark-muted);
 }
 
@@ -688,11 +717,6 @@ html[data-theme="dark"] .navbar-toggler-icon {
   color: var(--dark);
 }
 
-.button-light:hover {
-  background: var(--accent-light);
-  color: #141b3d;
-}
-
 .contact-details {
   margin-top: 75px;
   padding-top: 25px;
@@ -703,30 +727,32 @@ html[data-theme="dark"] .navbar-toggler-icon {
   display: flex;
   flex-direction: column;
   gap: 7px;
+  min-width: 0;
 }
 
 .contact-label {
-  font: 500 9px "DM Mono", monospace;
+  font: 500 var(--fs-nano) "DM Mono", monospace;
   letter-spacing: .12em;
 }
 
 .contact-details a,
 .contact-details > div > span:last-child {
   color: var(--dark-text);
-  font-size: 12px;
+  font-size: var(--fs-small);
+  overflow-wrap: anywhere;
 }
 
-.contact-details a:hover {
-  color: var(--accent-light);
-}
 
-/* Footer */
+/* ==========================================================================
+   Footer
+   ========================================================================== */
 
 .site-footer {
   padding: 23px 0;
+  padding-bottom: calc(23px + env(safe-area-inset-bottom));
   background: var(--bg);
   color: var(--muted);
-  font-size: 10px;
+  font-size: var(--fs-micro);
 }
 
 :focus-visible {
@@ -734,9 +760,176 @@ html[data-theme="dark"] .navbar-toggler-icon {
   outline-offset: 4px;
 }
 
-/* Tablet */
+
+/* ==========================================================================
+   Placeholder visuals (shown until real images are added)
+   ========================================================================== */
+
+.image-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 170px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 20px;
+  background: linear-gradient(145deg, var(--paper), var(--surface));
+  color: var(--muted);
+  text-align: center;
+  font: 500 var(--fs-micro) "DM Mono", monospace;
+  letter-spacing: .12em;
+}
+
+.image-placeholder i {
+  color: var(--accent);
+  font-size: clamp(38px, 5vw, calc(66px * var(--scale)));
+}
+
+.hero-portrait-wrap > .image-placeholder {
+  height: auto;
+  min-height: 0;
+  aspect-ratio: 420 / 475;
+}
+
+.project-visual > .image-placeholder {
+  position: absolute;
+  inset: 0;
+  min-height: 0;
+}
+
+
+/* ==========================================================================
+   Hover effects
+   Only on devices that really hover, so taps on phones and tablets do not
+   leave buttons, tabs or cards stuck in their hover state.
+   ========================================================================== */
+
+@media (hover: hover) {
+  .nav-logo:hover .logo-img {
+    transform: scale(1.05);
+  }
+
+  .nav-link-item:hover {
+    color: var(--text);
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: rotate(15deg);
+  }
+
+  .button:hover {
+    transform: translateY(-2px);
+  }
+
+  .button-dark:hover {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  .button-outline:hover {
+    border-color: var(--text);
+  }
+
+  .button-light:hover {
+    background: var(--accent-light);
+    color: #141b3d;
+  }
+
+  .text-link:hover {
+    color: var(--text);
+  }
+
+  .skill-tab:hover {
+    background: var(--text);
+    color: var(--bg);
+    border-color: var(--text);
+  }
+
+  .skill-card:hover,
+  .personal-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+    border-color: var(--accent);
+  }
+
+  .skill-card:hover .skill-icons i {
+    transform: translateY(-3px);
+  }
+
+  .project-card:hover .project-image {
+    transform: scale(1.04);
+  }
+
+  .project-link:hover {
+    color: var(--accent);
+  }
+
+  .contact-details a:hover {
+    color: var(--accent-light);
+  }
+}
+
+
+/* ==========================================================================
+   Large screens
+   Everything sized with --scale grows together, and the content area widens
+   so big monitors are not left with a narrow strip in the middle.
+   ========================================================================== */
+
+@media (min-width: 1600px) {
+  :root {
+    --scale: 1.1;
+  }
+
+  .container {
+    max-width: 1440px;
+  }
+}
+
+@media (min-width: 1920px) {
+  :root {
+    --scale: 1.25;
+  }
+
+  .container {
+    max-width: 1640px;
+  }
+}
+
+@media (min-width: 2560px) {
+  :root {
+    --scale: 1.65;
+  }
+
+  .container {
+    max-width: 2200px;
+  }
+}
+
+@media (min-width: 3440px) {
+  :root {
+    --scale: 2.2;
+  }
+
+  .container {
+    max-width: 2900px;
+  }
+}
+
+
+/* ==========================================================================
+   Tablets and below (under 992px)
+   ========================================================================== */
 
 @media (max-width: 991.98px) {
+  :root {
+    --nav-height: 68px;
+  }
+
   .section-space {
     padding: 85px 0;
   }
@@ -750,8 +943,9 @@ html[data-theme="dark"] .navbar-toggler-icon {
     margin: 0;
   }
 
-  .hero-portrait {
-    height: 430px;
+  .hero-portrait,
+  .hero-portrait-wrap > .image-placeholder {
+    aspect-ratio: 500 / 430;
   }
 
   .portrait-caption {
@@ -762,36 +956,115 @@ html[data-theme="dark"] .navbar-toggler-icon {
     margin-left: 0;
   }
 
+  /* Mobile menu: stay inside the screen and scroll if it is too tall
+     (for example a phone held sideways). */
   .navbar-collapse {
-    padding: 16px 0 20px;
+    padding: 12px 0 18px;
+    max-height: calc(100vh - var(--nav-height));
+    max-height: calc(100dvh - var(--nav-height));
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   .nav-link-item {
-    padding: 8px 0;
+    display: block;
+    padding: 12px 0;
+    font-size: var(--fs-meta);
   }
 
   .theme-toggle {
-    margin-top: 8px;
+    margin: 8px 0 4px;
+  }
+
+  .contact-action {
+    justify-content: flex-start;
   }
 }
 
-/* Mobile */
+
+/* ==========================================================================
+   Phones (under 768px)
+   ========================================================================== */
+
+@media (max-width: 767.98px) {
+  /* Slightly larger small text so labels stay readable on a phone. */
+  :root {
+    --fs-meta: 14px;
+    --fs-small: 13px;
+    --fs-ui: 12px;
+    --fs-micro: 11px;
+    --fs-nano: 10.5px;
+  }
+
+  .section-heading {
+    margin-bottom: 40px;
+  }
+
+  .stats-row {
+    margin: 50px 0 60px;
+  }
+
+  .personal-card {
+    min-height: 0;
+  }
+
+  .project-content > p:not(.project-meta) {
+    min-height: 0;
+  }
+}
+
+
+/* ==========================================================================
+   Small phones (under 576px)
+   ========================================================================== */
 
 @media (max-width: 575.98px) {
+  :root {
+    --nav-height: 64px;
+  }
+
   .section-space {
     padding: 70px 0;
   }
 
+  .site-nav .logo-img {
+    height: 32px;
+  }
+
+  .hero-section {
+    padding-top: 108px;
+  }
+
   .hero-title {
-    font-size: clamp(43px, 12vw, 61px);
+    font-size: clamp(34px, 11.5vw, 61px);
   }
 
   .hero-description {
-    font-size: 14px;
+    font-size: 15px;
   }
 
-  .hero-portrait {
-    height: 350px;
+  /* Full-width tap targets for the hero buttons */
+  .hero-actions {
+    gap: 12px !important;
+  }
+
+  .hero-actions .button {
+    flex: 1 1 100%;
+  }
+
+  .hero-actions .text-link {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+
+  .hero-portrait-wrap {
+    max-width: none;
+  }
+
+  .hero-portrait,
+  .hero-portrait-wrap > .image-placeholder {
+    aspect-ratio: 1 / 1;
+    max-height: 420px;
   }
 
   .portrait-caption {
@@ -806,32 +1079,72 @@ html[data-theme="dark"] .navbar-toggler-icon {
 
   .hero-bottom {
     margin-top: 45px;
-    font-size: 8px;
   }
 
   .section-heading {
     margin-bottom: 35px;
   }
 
+  .section-title {
+    font-size: clamp(32px, 9.5vw, 48px);
+  }
+
+  /* Stats: stack them, so long labels never collide. */
   .stats-row {
     margin: 45px 0 55px;
   }
 
-  .stat-item {
-    padding: 19px 10px;
+  .stat-item,
+  .stat-item:first-child {
+    flex: 0 0 100%;
+    max-width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 2px 14px;
+    padding: 16px 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .stat-item:last-child {
+    border-bottom: 0;
   }
 
   .stat-number {
-    font-size: 25px;
+    font-size: 22px;
   }
 
   .stat-label {
-    font-size: 9px;
+    font-size: 12px;
+  }
+
+  /* Bootstrap's g-5 gutter is wider than the container padding and made
+     the whole page scroll sideways on phones. */
+  .education-layout {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 1.5rem;
+  }
+
+  .subheading {
+    font-size: 26px;
   }
 
   .education-item {
-    grid-template-columns: 70px 1fr;
+    grid-template-columns: 70px minmax(0, 1fr);
     gap: 12px;
+  }
+
+  /* Skill tabs share the row evenly */
+  .skill-tabs {
+    gap: 6px;
+  }
+
+  .skill-tab {
+    flex: 1 1 auto;
+    padding: 10px 12px;
+    text-align: center;
   }
 
   .skill-card,
@@ -852,16 +1165,105 @@ html[data-theme="dark"] .navbar-toggler-icon {
     flex-direction: column;
   }
 
-  .contact-action {
-    justify-content: flex-start;
+  .contact-title {
+    font-size: clamp(36px, 11vw, 60px);
+  }
+
+  .contact-action .button {
+    width: 100%;
   }
 
   .contact-details {
     margin-top: 50px;
   }
+
+  .site-footer .container {
+    text-align: center;
+    align-items: center;
+  }
+
+  .footer-brand {
+    justify-content: center;
+  }
 }
 
-/* Accessibility: reduced motion */
+
+/* ==========================================================================
+   Very small phones (under 360px)
+   ========================================================================== */
+
+@media (max-width: 359.98px) {
+  .site-nav .logo-img {
+    height: 28px;
+  }
+
+  .hero-title {
+    font-size: clamp(31px, 11vw, 40px);
+  }
+
+  .portrait-caption {
+    width: 100%;
+    margin: -36px 0 0;
+    padding: 16px;
+  }
+
+  .portrait-caption p {
+    font-size: 16px;
+  }
+
+  .education-item {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+
+  .education-date {
+    padding-top: 0;
+  }
+
+  .skill-card,
+  .personal-card {
+    padding: 20px 17px;
+  }
+
+  .project-content {
+    padding: 18px 16px;
+  }
+
+  .project-content h3 {
+    font-size: 23px;
+  }
+
+  .skill-card h3,
+  .personal-card h3 {
+    font-size: 21px;
+  }
+
+  .button {
+    padding: 12px 14px;
+  }
+}
+
+
+/* ==========================================================================
+   Short screens, such as a phone held sideways
+   ========================================================================== */
+
+@media (max-height: 520px) and (orientation: landscape) {
+  .hero-section {
+    min-height: 0;
+    padding-top: 100px;
+    padding-bottom: 48px;
+  }
+
+  .section-space {
+    padding: 60px 0;
+  }
+}
+
+
+/* ==========================================================================
+   Accessibility: reduced motion
+   ========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -870,51 +1272,5 @@ html[data-theme="dark"] .navbar-toggler-icon {
     scroll-behavior: auto !important;
     transition-duration: .01ms !important;
     animation-duration: .01ms !important;
-  }
-}
-
-/* Placeholder visuals */
-
-.image-placeholder {
-  width: 100%;
-  height: 100%;
-  min-height: 170px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  padding: 20px;
-  background: linear-gradient(145deg, var(--paper), var(--surface));
-  color: var(--muted);
-  text-align: center;
-  font: 500 10px "DM Mono", monospace;
-  letter-spacing: .12em;
-}
-
-.image-placeholder i {
-  color: var(--accent);
-  font-size: clamp(38px, 5vw, 66px);
-}
-
-.hero-portrait-wrap > .image-placeholder {
-  height: 475px;
-}
-
-.project-visual > .image-placeholder {
-  position: absolute;
-  inset: 0;
-  min-height: 0;
-}
-
-@media (max-width: 991.98px) {
-  .hero-portrait-wrap > .image-placeholder {
-    height: 430px;
-  }
-}
-
-@media (max-width: 575.98px) {
-  .hero-portrait-wrap > .image-placeholder {
-    height: 350px;
   }
 }
