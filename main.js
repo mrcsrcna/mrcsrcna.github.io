@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", () => {
   const root = document.documentElement;
   const themeToggle = document.getElementById("themeToggle");
@@ -165,4 +164,121 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   updateGithubRepoCount();
+
+  // ---------------------------------------------------------------
+  // Hero: rotating role, cursor spotlight, portrait tilt
+  // ---------------------------------------------------------------
+  const hero = document.getElementById("home");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+
+  if (hero) {
+    // Rotating role in the eyebrow (a no-op if there is only one role)
+    const roles = Array.from(hero.querySelectorAll(".role-item"));
+    let roleIndex = 0;
+    let roleTimer = null;
+
+    function showNextRole() {
+      roles[roleIndex].classList.remove("is-active");
+      roles[roleIndex].setAttribute("aria-hidden", "true");
+
+      roleIndex = (roleIndex + 1) % roles.length;
+
+      roles[roleIndex].classList.add("is-active");
+      roles[roleIndex].removeAttribute("aria-hidden");
+    }
+
+    function startRoles() {
+      if (roles.length < 2 || roleTimer || reducedMotion.matches) return;
+      roleTimer = setInterval(showNextRole, 2800);
+    }
+
+    function stopRoles() {
+      clearInterval(roleTimer);
+      roleTimer = null;
+    }
+
+    startRoles();
+
+    // Save battery: stop rotating when the tab or the hero is not visible
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) stopRoles();
+      else startRoles();
+    });
+
+    if (reducedMotion.addEventListener) {
+      reducedMotion.addEventListener("change", (event) => {
+        if (event.matches) stopRoles();
+        else startRoles();
+      });
+    }
+
+    // Pause the ambient CSS animations while the hero is off screen
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(([entry]) => {
+        hero.classList.toggle("is-offscreen", !entry.isIntersecting);
+
+        if (entry.isIntersecting) startRoles();
+        else stopRoles();
+      }).observe(hero);
+    }
+
+    // Cursor spotlight and subtle 3D tilt on the portrait.
+    // Only on devices with a real mouse, and never with reduced motion.
+    const portraitWrap = hero.querySelector(".hero-portrait-wrap");
+    const portraitMedia = hero.querySelector(".portrait-media");
+    let pointerX = 0;
+    let pointerY = 0;
+    let frame = null;
+
+    function updatePointerEffects() {
+      frame = null;
+
+      const rect = hero.getBoundingClientRect();
+      const x = pointerX - rect.left;
+      const y = pointerY - rect.top;
+
+      hero.style.setProperty("--mx", `${x}px`);
+      hero.style.setProperty("--my", `${y}px`);
+
+      const nx = x / rect.width - 0.5;
+      const ny = y / rect.height - 0.5;
+
+      // Photo + frame tilt in 3D
+      if (portraitMedia) {
+        portraitMedia.style.transform = `perspective(1100px) rotateX(${(ny * -6).toFixed(2)}deg) rotateY(${(nx * 7).toFixed(2)}deg)`;
+      }
+
+      // Caption slides in the opposite direction, in whole pixels so the
+      // text stays crisp
+      if (portraitWrap) {
+        portraitWrap.style.setProperty("--cx", `${Math.round(nx * -14)}px`);
+        portraitWrap.style.setProperty("--cy", `${Math.round(ny * -10)}px`);
+      }
+    }
+
+    function resetPointerEffects() {
+      hero.classList.remove("is-pointer");
+
+      if (portraitMedia) portraitMedia.style.transform = "";
+
+      if (portraitWrap) {
+        portraitWrap.style.removeProperty("--cx");
+        portraitWrap.style.removeProperty("--cy");
+      }
+    }
+
+    if (finePointer.matches && !reducedMotion.matches) {
+      hero.addEventListener("pointermove", (event) => {
+        pointerX = event.clientX;
+        pointerY = event.clientY;
+
+        hero.classList.add("is-pointer");
+
+        if (!frame) frame = requestAnimationFrame(updatePointerEffects);
+      });
+
+      hero.addEventListener("pointerleave", resetPointerEffects);
+    }
+  }
 });

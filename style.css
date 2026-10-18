@@ -28,6 +28,12 @@
   --nav-bg: rgba(246, 247, 251, .91);
   --shadow: 0 18px 55px rgba(22, 34, 77, .1);
 
+  /* Hero background glows, cursor spotlight and "available" dot */
+  --orb-a: rgba(53, 86, 200, .2);
+  --orb-b: rgba(41, 71, 177, .12);
+  --spot: rgba(53, 86, 200, .1);
+  --ok: #1f9d63;
+
   /* Responsive scale.
      1 on normal screens, raised on very large displays (see the
      "Large screens" section). Everything sized with it grows together. */
@@ -63,6 +69,10 @@ html[data-theme="dark"] {
   --on-accent: #0f1013;
   --nav-bg: rgba(15, 16, 19, .92);
   --shadow: 0 18px 55px rgba(0, 0, 0, .35);
+  --orb-a: rgba(143, 165, 217, .14);
+  --orb-b: rgba(143, 165, 217, .08);
+  --spot: rgba(143, 165, 217, .09);
+  --ok: #4fd18b;
 }
 
 
@@ -388,6 +398,365 @@ html[data-theme="dark"] .navbar-toggler-icon {
 
 .hero-bottom a {
   color: var(--text);
+}
+
+
+/* ==========================================================================
+   Hero: background, entrance animation and details
+   Everything that moves lives inside "prefers-reduced-motion: no-preference",
+   so visitors who ask for less motion get the finished, static hero.
+   ========================================================================== */
+
+.hero-section {
+  position: relative;
+  overflow: hidden;
+  overflow: clip;
+}
+
+.hero-section > .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Background layers */
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: calc(64px * var(--scale)) calc(64px * var(--scale));
+  opacity: .4;
+  -webkit-mask-image: radial-gradient(ellipse 70% 65% at 72% 38%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(ellipse 70% 65% at 72% 38%, #000 0%, transparent 72%);
+}
+
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  aspect-ratio: 1;
+  will-change: transform;
+}
+
+.hero-orb-1 {
+  top: -22%;
+  right: -12%;
+  width: min(48vw, calc(760px * var(--scale)));
+  background: radial-gradient(circle, var(--orb-a), transparent 68%);
+}
+
+.hero-orb-2 {
+  bottom: -32%;
+  left: -16%;
+  width: min(42vw, calc(640px * var(--scale)));
+  background: radial-gradient(circle, var(--orb-b), transparent 68%);
+}
+
+.hero-spotlight {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: radial-gradient(
+    calc(520px * var(--scale)) circle at var(--mx, 70%) var(--my, 30%),
+    var(--spot),
+    transparent 62%
+  );
+  transition: opacity .5s ease;
+}
+
+.hero-section.is-pointer .hero-spotlight {
+  opacity: 1;
+}
+
+/* Title: each word sits in a mask so it can slide up into view */
+
+.word {
+  display: inline-block;
+  vertical-align: top;
+  overflow: hidden;
+  /* room for descenders and italic overhang, cancelled out by the margins */
+  padding: 0 .08em .14em;
+  margin: 0 -.08em -.14em;
+}
+
+.word-inner {
+  display: inline-block;
+}
+
+/* Rotating role in the eyebrow. All roles share one grid cell, so the
+   width never changes and nothing below it jumps. */
+
+.eyebrow-text {
+  min-width: 0;
+}
+
+.role-rotator {
+  display: inline-grid;
+  vertical-align: bottom;
+  overflow: hidden;
+  color: var(--accent);
+}
+
+.role-item {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform: translateY(70%);
+  transition: opacity .5s ease, transform .55s cubic-bezier(.2, .7, .2, 1);
+}
+
+.role-item.is-active {
+  opacity: 1;
+  transform: none;
+}
+
+/* Portrait: the photo and its offset outline frame tilt together. The caption
+   never rotates (so its text stays sharp); it only shifts in whole pixels. */
+
+.portrait-media {
+  position: relative;
+  isolation: isolate;
+  transition: transform .45s cubic-bezier(.2, .7, .2, 1);
+  will-change: transform;
+}
+
+.portrait-media::before {
+  content: "";
+  position: absolute;
+  inset: 18px -18px -18px 18px;
+  z-index: -1;
+  border: 1px solid var(--accent);
+  border-radius: 2px;
+  opacity: .5;
+}
+
+.portrait-caption {
+  transform: translate(var(--cx, 0px), var(--cy, 0px));
+  transition: transform .45s cubic-bezier(.2, .7, .2, 1);
+}
+
+/* Availability pill and quick links */
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 18px;
+  margin-top: 34px;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 15px 8px 13px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font: 500 var(--fs-micro)/1.3 "DM Mono", monospace;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.status-dot {
+  position: relative;
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ok);
+}
+
+.status-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--ok);
+  opacity: 0;
+}
+
+.hero-social {
+  display: flex;
+  gap: 10px;
+}
+
+.hero-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(40px * var(--scale));
+  height: calc(40px * var(--scale));
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  font-size: calc(17px * var(--scale));
+  transition: border-color .2s ease, color .2s ease, transform .2s ease;
+}
+
+.button i,
+.hero-bottom a i {
+  display: inline-block;
+  transition: transform .25s ease;
+}
+
+@media (hover: hover) {
+  .hero-social a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-3px);
+  }
+
+  .button:hover .bi-arrow-up-right {
+    transform: translate(3px, -3px);
+  }
+}
+
+/* Motion: only for visitors who have not asked for less of it */
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes heroFadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  @keyframes heroWord {
+    from { transform: translateY(108%); }
+    to   { transform: none; }
+  }
+
+  @keyframes portraitReveal {
+    from { clip-path: inset(0 0 100% 0); transform: scale(1.08); }
+    to   { clip-path: inset(0 0 0 0);    transform: scale(1); }
+  }
+
+  @keyframes frameIn {
+    from { opacity: 0; translate: -16px -16px; }
+    to   { opacity: .5; translate: 0 0; }
+  }
+
+  @keyframes captionIn {
+    from { opacity: 0; translate: 0 26px; }
+    to   { opacity: 1; translate: 0 0; }
+  }
+
+  @keyframes captionFloat {
+    from { translate: 0 0; }
+    to   { translate: 0 -8px; }
+  }
+
+  @keyframes orbDriftA {
+    from { transform: translate3d(0, 0, 0) scale(1); }
+    to   { transform: translate3d(-6%, 8%, 0) scale(1.14); }
+  }
+
+  @keyframes orbDriftB {
+    from { transform: translate3d(0, 0, 0) scale(1); }
+    to   { transform: translate3d(8%, -6%, 0) scale(1.18); }
+  }
+
+  @keyframes dotPing {
+    0%        { transform: scale(1);   opacity: .55; }
+    80%, 100% { transform: scale(3.2); opacity: 0; }
+  }
+
+  @keyframes nudgeDown {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(4px); }
+  }
+
+  /* Entrance: staggered by --d (set inline in the HTML) */
+  .hero-reveal {
+    animation: heroFadeUp .9s cubic-bezier(.2, .7, .2, 1) both;
+    animation-delay: var(--d, 0s);
+  }
+
+  .word-inner {
+    animation: heroWord 1s cubic-bezier(.2, .8, .2, 1) both;
+    animation-delay: calc(.2s + var(--i, 0) * .09s);
+  }
+
+  .hero-portrait,
+  .hero-portrait-wrap .image-placeholder {
+    animation: portraitReveal 1.2s cubic-bezier(.2, .7, .2, 1) .3s both;
+  }
+
+  .portrait-media::before {
+    animation: frameIn 1s cubic-bezier(.2, .7, .2, 1) .7s both;
+  }
+
+  .portrait-caption {
+    animation:
+      captionIn .9s cubic-bezier(.2, .7, .2, 1) .85s both,
+      captionFloat 6s ease-in-out 2s infinite alternate;
+  }
+
+  .hero-bottom {
+    animation: heroFadeUp .9s ease 1.3s both;
+  }
+
+  /* Ambient motion */
+  .hero-orb-1 { animation: orbDriftA 20s ease-in-out infinite alternate; }
+  .hero-orb-2 { animation: orbDriftB 26s ease-in-out -9s infinite alternate; }
+
+  .status-dot::after { animation: dotPing 2.4s cubic-bezier(0, 0, .2, 1) infinite; }
+
+  .hero-bottom a i { animation: nudgeDown 1.8s ease-in-out infinite; }
+
+  /* Pause the ambient motion while the hero is scrolled out of view */
+  .hero-section.is-offscreen .hero-orb,
+  .hero-section.is-offscreen .portrait-caption,
+  .hero-section.is-offscreen .status-dot::after,
+  .hero-section.is-offscreen .hero-bottom a i {
+    animation-play-state: paused;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .role-item,
+  .portrait-media,
+  .portrait-caption {
+    transition: none;
+  }
+}
+
+/* Hero details on smaller screens */
+
+@media (max-width: 767.98px) {
+  .hero-orb-1 {
+    width: 90vw;
+    top: -10%;
+    right: -35%;
+  }
+
+  .hero-orb-2 {
+    width: 80vw;
+    bottom: -12%;
+    left: -40%;
+  }
+
+  .hero-grid {
+    background-size: 44px 44px;
+    -webkit-mask-image: radial-gradient(ellipse 90% 55% at 50% 30%, #000 0%, transparent 75%);
+    mask-image: radial-gradient(ellipse 90% 55% at 50% 30%, #000 0%, transparent 75%);
+  }
+
+  .hero-meta {
+    margin-top: 26px;
+  }
+
+  .portrait-media::before {
+    inset: 12px -10px -12px 12px;
+  }
 }
 
 
@@ -787,7 +1156,7 @@ html[data-theme="dark"] .navbar-toggler-icon {
   font-size: clamp(38px, 5vw, calc(66px * var(--scale)));
 }
 
-.hero-portrait-wrap > .image-placeholder {
+.hero-portrait-wrap .image-placeholder {
   height: auto;
   min-height: 0;
   aspect-ratio: 420 / 475;
@@ -944,7 +1313,7 @@ html[data-theme="dark"] .navbar-toggler-icon {
   }
 
   .hero-portrait,
-  .hero-portrait-wrap > .image-placeholder {
+  .hero-portrait-wrap .image-placeholder {
     aspect-ratio: 500 / 430;
   }
 
@@ -1062,7 +1431,7 @@ html[data-theme="dark"] .navbar-toggler-icon {
   }
 
   .hero-portrait,
-  .hero-portrait-wrap > .image-placeholder {
+  .hero-portrait-wrap .image-placeholder {
     aspect-ratio: 1 / 1;
     max-height: 420px;
   }
