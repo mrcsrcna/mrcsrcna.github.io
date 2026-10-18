@@ -1,10 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
 
-/* ==========================================================================
-   Design tokens
-   ========================================================================== */
-
 :root {
   color-scheme: light;
   /* Logo palette */
@@ -28,13 +24,9 @@
   --nav-bg: rgba(246, 247, 251, .91);
   --shadow: 0 18px 55px rgba(22, 34, 77, .1);
 
-  /* Responsive scale.
-     1 on normal screens, raised on very large displays (see the
-     "Large screens" section). Everything sized with it grows together. */
+ 
   --scale: 1;
 
-  /* Type tokens. Small mono labels get a little larger on phones
-     (see the "Phones" section) so they stay readable. */
   --fs-body: calc(15px * var(--scale));
   --fs-lead: calc(16px * var(--scale));
   --fs-meta: calc(13px * var(--scale));
@@ -66,9 +58,7 @@ html[data-theme="dark"] {
 }
 
 
-/* ==========================================================================
-   Base
-   ========================================================================== */
+
 
 * {
   box-sizing: border-box;
@@ -118,9 +108,6 @@ img {
 }
 
 
-/* ==========================================================================
-   Navigation
-   ========================================================================== */
 
 .site-nav {
   min-height: var(--nav-height);
@@ -153,8 +140,6 @@ img {
   transition: filter .25s ease, transform .25s ease;
 }
 
-/* The logo is dark navy to black, so render it as a light silhouette
-   in dark mode. */
 html[data-theme="dark"] .logo-img {
   filter: brightness(0) invert(.94);
 }
@@ -215,10 +200,6 @@ html[data-theme="dark"] .navbar-toggler-icon {
   line-height: 1;
 }
 
-
-/* ==========================================================================
-   Hero
-   ========================================================================== */
 
 .hero-section {
   min-height: 100vh;
@@ -313,7 +294,7 @@ html[data-theme="dark"] .navbar-toggler-icon {
   font-weight: 600;
 }
 
-/* Portrait */
+
 
 .hero-portrait-wrap {
   position: relative;
@@ -391,9 +372,7 @@ html[data-theme="dark"] .navbar-toggler-icon {
 }
 
 
-/* ==========================================================================
-   About
-   ========================================================================== */
+
 
 .section-heading {
   margin-bottom: 55px;
@@ -445,11 +424,6 @@ html[data-theme="dark"] .navbar-toggler-icon {
   font: 400 calc(29px * var(--scale)) "DM Serif Display", serif;
 }
 
-/* Education */
-
-/* Bootstrap's g-5 gutter (3rem) is wider than the container padding, which
-   pushes the page wider than the screen on phones. Keep it to 1.5rem there
-   (see the "Phones" section). */
 
 .education-item {
   display: grid;
@@ -485,10 +459,6 @@ html[data-theme="dark"] .navbar-toggler-icon {
 }
 
 
-/* ==========================================================================
-   Skills
-   ========================================================================== */
-
 .skill-tabs {
   display: flex;
   gap: 8px;
@@ -512,7 +482,6 @@ html[data-theme="dark"] .navbar-toggler-icon {
   border-color: var(--text);
 }
 
-/* Skill and personal cards */
 
 .skill-card,
 .personal-card {
@@ -575,10 +544,6 @@ html[data-theme="dark"] .navbar-toggler-icon {
   font-size: calc(28px * var(--scale));
 }
 
-
-/* ==========================================================================
-   Projects (also used by the Web Development Submission section)
-   ========================================================================== */
 
 .project-card {
   height: 100%;
@@ -672,10 +637,6 @@ html[data-theme="dark"] .navbar-toggler-icon {
 }
 
 
-/* ==========================================================================
-   Contact
-   ========================================================================== */
-
 .section-dark {
   background: var(--dark);
   color: var(--dark-text);
@@ -743,10 +704,6 @@ html[data-theme="dark"] .navbar-toggler-icon {
 }
 
 
-/* ==========================================================================
-   Footer
-   ========================================================================== */
-
 .site-footer {
   padding: 23px 0;
   padding-bottom: calc(23px + env(safe-area-inset-bottom));
@@ -800,11 +757,6 @@ html[data-theme="dark"] .navbar-toggler-icon {
 }
 
 
-/* ==========================================================================
-   Hover effects
-   Only on devices that really hover, so taps on phones and tablets do not
-   leave buttons, tabs or cards stuck in their hover state.
-   ========================================================================== */
 
 @media (hover: hover) {
   .nav-logo:hover .logo-img {
@@ -874,12 +826,6 @@ html[data-theme="dark"] .navbar-toggler-icon {
 }
 
 
-/* ==========================================================================
-   Large screens
-   Everything sized with --scale grows together, and the content area widens
-   so big monitors are not left with a narrow strip in the middle.
-   ========================================================================== */
-
 @media (min-width: 1600px) {
   :root {
     --scale: 1.1;
@@ -921,9 +867,6 @@ html[data-theme="dark"] .navbar-toggler-icon {
 }
 
 
-/* ==========================================================================
-   Tablets and below (under 992px)
-   ========================================================================== */
 
 @media (max-width: 991.98px) {
   :root {
@@ -956,8 +899,6 @@ html[data-theme="dark"] .navbar-toggler-icon {
     margin-left: 0;
   }
 
-  /* Mobile menu: stay inside the screen and scroll if it is too tall
-     (for example a phone held sideways). */
   .navbar-collapse {
     padding: 12px 0 18px;
     max-height: calc(100vh - var(--nav-height));
@@ -980,11 +921,6 @@ html[data-theme="dark"] .navbar-toggler-icon {
     justify-content: flex-start;
   }
 }
-
-
-/* ==========================================================================
-   Phones (under 768px)
-   ========================================================================== */
 
 @media (max-width: 767.98px) {
   /* Slightly larger small text so labels stay readable on a phone. */
@@ -1014,10 +950,6 @@ html[data-theme="dark"] .navbar-toggler-icon {
 }
 
 
-/* ==========================================================================
-   Small phones (under 576px)
-   ========================================================================== */
-
 @media (max-width: 575.98px) {
   :root {
     --nav-height: 64px;
@@ -1043,7 +975,6 @@ html[data-theme="dark"] .navbar-toggler-icon {
     font-size: 15px;
   }
 
-  /* Full-width tap targets for the hero buttons */
   .hero-actions {
     gap: 12px !important;
   }
@@ -1089,7 +1020,6 @@ html[data-theme="dark"] .navbar-toggler-icon {
     font-size: clamp(32px, 9.5vw, 48px);
   }
 
-  /* Stats: stack them, so long labels never collide. */
   .stats-row {
     margin: 45px 0 55px;
   }
@@ -1120,8 +1050,7 @@ html[data-theme="dark"] .navbar-toggler-icon {
     font-size: 12px;
   }
 
-  /* Bootstrap's g-5 gutter is wider than the container padding and made
-     the whole page scroll sideways on phones. */
+
   .education-layout {
     --bs-gutter-x: 1.5rem;
     --bs-gutter-y: 1.5rem;
@@ -1136,7 +1065,7 @@ html[data-theme="dark"] .navbar-toggler-icon {
     gap: 12px;
   }
 
-  /* Skill tabs share the row evenly */
+
   .skill-tabs {
     gap: 6px;
   }
@@ -1187,10 +1116,6 @@ html[data-theme="dark"] .navbar-toggler-icon {
   }
 }
 
-
-/* ==========================================================================
-   Very small phones (under 360px)
-   ========================================================================== */
 
 @media (max-width: 359.98px) {
   .site-nav .logo-img {
@@ -1244,10 +1169,6 @@ html[data-theme="dark"] .navbar-toggler-icon {
 }
 
 
-/* ==========================================================================
-   Short screens, such as a phone held sideways
-   ========================================================================== */
-
 @media (max-height: 520px) and (orientation: landscape) {
   .hero-section {
     min-height: 0;
@@ -1260,10 +1181,6 @@ html[data-theme="dark"] .navbar-toggler-icon {
   }
 }
 
-
-/* ==========================================================================
-   Accessibility: reduced motion
-   ========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
   *,
