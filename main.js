@@ -49,6 +49,46 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Flippable calling card ("What shapes me")
+  const flipCard = document.getElementById("flipCard");
+  const flipStatusText = document.getElementById("flipStatusText");
+
+  if (flipCard) {
+    const flipWrap = flipCard.closest(".shape-flip");
+    const frontFace = flipCard.querySelector(".flip-front");
+    const backFace = flipCard.querySelector(".flip-back");
+
+    function setFlipped(flipped) {
+      flipCard.classList.toggle("is-flipped", flipped);
+
+      if (flipWrap) {
+        flipWrap.classList.toggle("is-flipped", flipped);
+      }
+
+      flipCard.setAttribute("aria-pressed", String(flipped));
+      flipCard.setAttribute(
+        "aria-label",
+        flipped
+          ? "Calling card, showing the back with contact details. Activate to flip to the front."
+          : "Calling card, showing the front. Activate to flip to the back.",
+      );
+
+      if (frontFace) frontFace.setAttribute("aria-hidden", String(flipped));
+      if (backFace) backFace.setAttribute("aria-hidden", String(!flipped));
+
+      if (flipStatusText) {
+        flipStatusText.textContent = flipped
+          ? "SHOWING BACK · CLICK TO FLIP"
+          : "SHOWING FRONT · CLICK TO FLIP";
+      }
+    }
+
+    // A <button> already handles click, Enter and Space.
+    flipCard.addEventListener("click", () => {
+      setFlipped(!flipCard.classList.contains("is-flipped"));
+    });
+  }
+
   // Current year in footer and hero
   const year = new Date().getFullYear();
   const currentYear = document.getElementById("currentYear");

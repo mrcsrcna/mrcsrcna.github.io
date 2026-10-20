@@ -498,39 +498,100 @@
               </p>
             </div>
           </div>
-          <div class="row row-cols-1 row-cols-md-3 g-3">
-            <div class="col">
-              <article class="personal-card">
-                <span class="card-index">A / 01</span><i class="bi bi-eye"></i>
-                <h3>Interests</h3>
+
+          <div class="shape-grid">
+            <!-- Flippable calling card -->
+            <article class="shape-card shape-flip">
+              <div class="shape-flip-copy">
+                <div class="shape-top">
+                  <span class="card-index">A / 01</span>
+                  <i
+                    class="bi bi-person-vcard shape-icon"
+                    aria-hidden="true"
+                  ></i>
+                </div>
+                <h3>My calling card</h3>
                 <p>
-                  Interface design, digital creativity, and exploring how
-                  websites solve practical problems.
+                  A small piece of identity I designed — the mark on the front,
+                  the details on the back. Flip it over to see how to reach me.
                 </p>
-              </article>
-            </div>
-            <div class="col">
-              <article class="personal-card">
-                <span class="card-index">B / 02</span
-                ><i class="bi bi-journal-bookmark"></i>
-                <h3>Learning</h3>
-                <p>
-                  Building a foundation in programming, databases, and the
-                  process of developing useful systems.
-                </p>
-              </article>
-            </div>
-            <div class="col">
-              <article class="personal-card">
-                <span class="card-index">C / 03</span
-                ><i class="bi bi-compass"></i>
-                <h3>Goals</h3>
-                <p>
-                  Keep improving through hands-on projects and gradually grow
-                  into a capable web developer.
-                </p>
-              </article>
-            </div>
+                <ul class="shape-tags">
+                  <li>Interface design</li>
+                  <li>Digital creativity</li>
+                  <li>Visual balance</li>
+                </ul>
+                <span class="flip-status" id="flipStatus" aria-live="polite">
+                  <i class="bi bi-arrow-repeat" aria-hidden="true"></i>
+                  <span id="flipStatusText">SHOWING FRONT · CLICK TO FLIP</span>
+                </span>
+              </div>
+
+              <div class="flip-stage">
+                <button
+                  type="button"
+                  class="flip-card"
+                  id="flipCard"
+                  aria-pressed="false"
+                  aria-label="Calling card, showing the front. Activate to flip to the back."
+                >
+                  <span class="flip-inner">
+                    <span class="flip-face flip-front">
+                      <img
+                        src="card-front.svg"
+                        alt="Calling card front: Marc Andrei's logo mark on brushed metal"
+                        width="794"
+                        height="425"
+                      />
+                    </span>
+                    <span class="flip-face flip-back" aria-hidden="true">
+                      <img
+                        src="card-back.svg"
+                        alt="Calling card back: email andreisercena@gmail.com, phone +63 976 289 6687, GitHub github.com/mrcsrcna, Laguna, Philippines"
+                        width="794"
+                        height="433"
+                      />
+                    </span>
+                  </span>
+                </button>
+              </div>
+            </article>
+
+            <article class="shape-card">
+              <div class="shape-top">
+                <span class="card-index">B / 02</span>
+                <i
+                  class="bi bi-journal-bookmark shape-icon"
+                  aria-hidden="true"
+                ></i>
+              </div>
+              <h3>Learning</h3>
+              <p>
+                Building a foundation in programming, databases, and the
+                process of developing useful systems.
+              </p>
+              <ul class="shape-tags">
+                <li>PHP &amp; MySQL</li>
+                <li>JavaScript</li>
+                <li>Git &amp; GitHub</li>
+              </ul>
+            </article>
+
+            <article class="shape-card shape-card-dark">
+              <div class="shape-top">
+                <span class="card-index">C / 03</span>
+                <i class="bi bi-compass shape-icon" aria-hidden="true"></i>
+              </div>
+              <h3>Goals</h3>
+              <p>
+                Keep improving through hands-on projects and gradually grow
+                into a capable web developer.
+              </p>
+              <ol class="shape-roadmap">
+                <li>Build hands-on projects</li>
+                <li>Strengthen backend &amp; databases</li>
+                <li>Grow into a capable web developer</li>
+              </ol>
+            </article>
           </div>
         </div>
       </section>
@@ -564,9 +625,9 @@
                   <p class="project-meta">WEB DESIGN · E-COMMERCE CONCEPT</p>
                   <h3>Chronos</h3>
                   <p>
-                    A watch-store website concept focused on product
-                    presentation, a consistent visual identity, and a clear
-                    shopping experience.
+                    A watch-store website concept developed to practice product
+                    presentation, consistent visual branding, and a clear,
+                    user-friendly shopping flow.
                   </p>
                   <div class="project-footer">
                     <span>HTML · CSS · FLASK / SQLITE*</span
@@ -596,8 +657,10 @@
                   <p class="project-meta">PERSONAL WEBSITE</p>
                   <h3>Personal Portfolio</h3>
                   <p>
-                    A portfolio website presenting my background, skills,
-                    selected projects, and contact information.
+                    A responsive portfolio website that presents my background,
+                    technical skills, selected projects, and contact
+                    information. It is continuously refined as my experience
+                    grows.
                   </p>
                   <div class="project-footer">
                     <span>HTML · CSS · JS · BOOTSTRAP</span
@@ -623,8 +686,9 @@
                   <p class="project-meta">GAME DEVELOPMENT</p>
                   <h3>Deadzone Survival</h3>
                   <p>
-                    A survival game project exploring gameplay logic, enemy
-                    encounters, and custom visual assets.
+                    A survival game built with Python and Pygame, focused on
+                    implementing gameplay logic, enemy behavior, and
+                    custom-designed visual assets.
                   </p>
                   <div class="project-footer">
                     <span>PYTHON · PYGAME*</span
@@ -655,10 +719,10 @@
                   <p class="project-meta">E-COMMERCE · PHP · DATABASE</p>
                   <h3>Chronos Timepieces</h3>
                   <p>
-                    An enhanced luxury watch e-commerce platform powered by PHP
-                    and database integration, featuring streamlined order
-                    processing, payment management, and a centralized admin
-                    dashboard for real-time order status monitoring and control.
+                    A luxury watch e-commerce platform built with PHP and
+                    database integration. It includes order processing, payment
+                    management, and a centralized admin dashboard for
+                    monitoring and updating order statuses in real time.
                   </p>
                   <div class="project-footer">
                     <span>PHP · CSS · JS · SQLITE · XAMPP</span
@@ -689,8 +753,9 @@
                   <p class="project-meta">WEB DEVELOPMENT SUBMISSIONS</p>
                   <h3>Web Development Submissions</h3>
                   <p>
-                    A short description of the project: what it does, who it
-                    is for, and what you focused on while building it.
+                    A compilation of coursework projects demonstrating my
+                    progress in HTML, CSS, and JavaScript, from foundational
+                    page layouts to interactive front-end features.
                   </p>
                   <div class="project-footer">
                     <span>HTML · CSS · JS · BOOTSTRAP</span
